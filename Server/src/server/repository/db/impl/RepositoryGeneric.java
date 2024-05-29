@@ -24,7 +24,7 @@ public class RepositoryGeneric implements DbRepository<GenericEntity, Integer, S
     
     @Override
     public List<GenericEntity> getAll(GenericEntity entity) throws Exception {
-        Connection connection = DbConnectionFactory.getInstance().getConnection();
+        Connection connection = connect();
         
         String query = "SELECT * FROM " + entity.getTableName();
         System.out.println(query);
@@ -38,7 +38,7 @@ public class RepositoryGeneric implements DbRepository<GenericEntity, Integer, S
     @Override
     public List<GenericEntity> getAllById(GenericEntity entity) throws Exception {
         //ne po IDu ali mi treba ovaj typel
-        Connection connection = DbConnectionFactory.getInstance().getConnection();
+        Connection connection = connect();
         
         //SELECT * FROM ordert o JOIN USER u ON (o.IDUser = u.UserID) WHERE IDAdmin IS NULL;";
         //String query = "SELECT * FROM " + entity.getColumnNamesWithJoin() + " WHERE " +entity.getWhereCondition();
@@ -54,7 +54,7 @@ public class RepositoryGeneric implements DbRepository<GenericEntity, Integer, S
 
     @Override
     public List<GenericEntity> getAllById(GenericEntity entity, Integer typeK) throws Exception {
-        Connection connection = DbConnectionFactory.getInstance().getConnection();
+        Connection connection = connect();
         
         //SELECT * FROM OrderItem oi JOIN product p ON (oi.IDProduct = p.ProductID) WHERE IDOrder = " + order.getOrderID();
         //SELECT * FROM ordert WHERE IDAdmin IS NULL AND IDUser=" + typek;
@@ -71,7 +71,7 @@ public class RepositoryGeneric implements DbRepository<GenericEntity, Integer, S
     @Override
     public List<GenericEntity> getAllByIdMoreSQL(GenericEntity entity, Integer typeK) throws Exception {
         
-        Connection connection = DbConnectionFactory.getInstance().getConnection();
+        Connection connection = connect();
         
         //SELECT * FROM ordert WHERE IDUser=" + typek;
                 
@@ -86,7 +86,7 @@ public class RepositoryGeneric implements DbRepository<GenericEntity, Integer, S
     @Override
     public void add(GenericEntity entity) throws Exception {
         try {
-            Connection connection = DbConnectionFactory.getInstance().getConnection();
+            Connection connection = connect();
             StringBuilder sb = new StringBuilder();
             sb.append("INSERT INTO ")
                     .append(entity.getTableName())
@@ -114,7 +114,7 @@ public class RepositoryGeneric implements DbRepository<GenericEntity, Integer, S
 
     @Override
     public void edit(GenericEntity p) throws Exception {
-        Connection connection = DbConnectionFactory.getInstance().getConnection();
+        Connection connection = connect();
         
         String query = "UPDATE " + p.getTableName() + " SET " + p.getUpdateValues() + " WHERE " + p.getWhereCondition();
         System.out.println(query);
@@ -126,7 +126,7 @@ public class RepositoryGeneric implements DbRepository<GenericEntity, Integer, S
 
     @Override
     public void editSmt(GenericEntity p, Integer typeK) throws Exception {
-        Connection connection = DbConnectionFactory.getInstance().getConnection();
+        Connection connection = connect();
         
         String query = "UPDATE " + p.getTableName() + " SET " + p.getUpdate2(typeK) + " WHERE " + p.getWhereCondition();
         System.out.println(query);
@@ -138,7 +138,7 @@ public class RepositoryGeneric implements DbRepository<GenericEntity, Integer, S
 
     @Override
     public void editSmtElse(GenericEntity p, Integer typeK) throws Exception {
-        Connection connection = DbConnectionFactory.getInstance().getConnection();
+        Connection connection = connect();
         
         String query = "UPDATE " + p.getTableName() + " SET " + p.getUpdate3(typeK) + " WHERE " + p.getThirdWhereCondition();
         System.out.println(query);
@@ -153,7 +153,7 @@ public class RepositoryGeneric implements DbRepository<GenericEntity, Integer, S
         try {
             String query = "DELETE FROM " + entity.getTableName() + " WHERE " + entity.getWhereCondition();
             System.out.println(query);
-            Connection connection = DbConnectionFactory.getInstance().getConnection();
+            Connection connection = connect();
             Statement st = connection.createStatement();
         
             st.executeUpdate(query);
@@ -168,7 +168,7 @@ public class RepositoryGeneric implements DbRepository<GenericEntity, Integer, S
     @Override
     public int getCountOf(GenericEntity entity, String arg) throws Exception {
         
-        Connection connection = DbConnectionFactory.getInstance().getConnection();
+        Connection connection = connect();
         
         //SELECT COUNT(orderid) AS COUNT FROM ordert WHERE IDAdmin IS NULL;
         //getSelect: COUNT(orderid) AS COUNT

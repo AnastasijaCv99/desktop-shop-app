@@ -33,6 +33,9 @@ public class LoginForm extends javax.swing.JFrame {
         hsp.start();
         ControllerClient.getInstance().setLf(this);
         
+        setSize(600, 600);
+        setName("Login form");
+        
     }
 
     /**
@@ -112,7 +115,7 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(65, 65, 65))
         );
@@ -122,22 +125,18 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here: LOGIN DUGME
-        String username = txtUsername.getText();
-        String password = String.copyValueOf(txtPassword.getPassword());
-        
-        NewClient nc = new NewClient(username, password);
-        Admin a = new Admin();
-        a.setUsername(username);
-        a.setPassword(password);
-        
-        try {
-            Communication.getInstance().login(nc);
-            } catch (IOException ex) {
-            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        
-        
-        
+        ////if (txtUsername.getText().isBlank() || txtPassword.getPassword().toString().isBlank()) {
+            //JOptionPane.showMessageDialog(this, "You have to enter credentials!");
+        //} else {
+            String username = txtUsername.getText();
+            String password = String.copyValueOf(txtPassword.getPassword());
+
+            NewClient nc = new NewClient(username, password);
+            Admin a = new Admin();
+            a.setUsername(username);
+            a.setPassword(password);
+
+            ControllerClient.getInstance().login(nc);     
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed

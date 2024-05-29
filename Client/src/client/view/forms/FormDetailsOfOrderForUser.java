@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package client.view.forms;
+import client.view.table.TableModelInvoicesForUser;
 import client.view.table.TableModelOrderItems;
 import java.util.ArrayList;
 
@@ -30,8 +31,10 @@ public class FormDetailsOfOrderForUser extends javax.swing.JDialog {
         this.o = o;
         this.i = i;
         
-        tblOrders.setModel(new TableModelOrderItems());
         showDetails(o, i);
+        
+        setSize(600, 600);
+        setName("Order");
     }
 
     /**
@@ -111,6 +114,7 @@ public class FormDetailsOfOrderForUser extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         TableModelOrderItems.emptyList();
+        //System.out.println("list is : " + TableModelOrderItems.getListOfItems().size());
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -127,6 +131,7 @@ public class FormDetailsOfOrderForUser extends javax.swing.JDialog {
             //textID.setLocation(150, 150);
            newPanel.add(label);
            newPanel.add(textID);*/
+            tblOrders.setModel(new TableModelOrderItems());
             lblText.setText("Order items of order number " + o.getOrderID());
             ArrayList<OrderItems> listOfItems = o.getListOfItem();
             TableModelOrderItems tmoi = (TableModelOrderItems) tblOrders.getModel();
@@ -134,6 +139,11 @@ public class FormDetailsOfOrderForUser extends javax.swing.JDialog {
             lblTextPrice.setText("Total price is " + o.getTotalAmountPricee());
         } else {
             //prikaz od i
+            tblOrders.setModel(new TableModelInvoicesForUser());
+            lblText.setText("Order items of invoice number " + i.getInvoiceID());
+            TableModelInvoicesForUser tmiu = (TableModelInvoicesForUser) tblOrders.getModel();
+            tmiu.addInvoice(i);
+            lblTextPrice.setText("Total price is " + i.getAmount());
         }
     }
 

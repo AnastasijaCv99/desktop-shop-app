@@ -35,7 +35,7 @@ public class FormAllOrdersUser extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.u = u;
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(parent);
         
         ControllerClient.getInstance().setAllordersuser(this);
         
@@ -43,6 +43,9 @@ public class FormAllOrdersUser extends javax.swing.JDialog {
         tblInvoices.setModel(new TableModelInvoicesForUser());
         fillUpTheTableInvoices();
         fillUpTheTableNotApproved();
+        
+        setSize(800, 800);
+        setName("All orders");
     }
 
     /**
@@ -249,7 +252,11 @@ public class FormAllOrdersUser extends javax.swing.JDialog {
 
     private void btnDetailsInvoicesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailsInvoicesActionPerformed
         TableModelInvoicesForUser tmiu = (TableModelInvoicesForUser) tblInvoices.getModel();
-        //NOT DONE 
+        int row = tblInvoices.getSelectedRow();
+        if (row != -1) {
+            Invoice i = tmiu.getInvoice(row);
+            new FormDetailsOfOrderForUser(this, true, null, i).setVisible(true);
+        } else JOptionPane.showMessageDialog(this, "You have to choose an order!");        
     }//GEN-LAST:event_btnDetailsInvoicesActionPerformed
 
     private void invoiceToPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invoiceToPDFActionPerformed
@@ -260,11 +267,12 @@ public class FormAllOrdersUser extends javax.swing.JDialog {
             Invoice i = tmiu.getInvoice(row);
             ArrayList<Invoice> invoices = new ArrayList<>();
             invoices.add(i);
-            try {
+            /*try {
                 Communication.getInstance().exportInvoicesToPdf(invoices);
             } catch (IOException ex) {
                 Logger.getLogger(FormAllOrdersUser.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }*/
+            ControllerClient.getInstance().exportInvoicesToPdf(invoices);
         }  else JOptionPane.showMessageDialog(this, "You have to choose an order!");
     }//GEN-LAST:event_invoiceToPDFActionPerformed
 
@@ -276,11 +284,12 @@ public class FormAllOrdersUser extends javax.swing.JDialog {
             Order o = tmou.getOrder(row);
             ArrayList<Order> orders = new ArrayList<>();
             orders.add(o);
-            try {
+            /*try {
                 Communication.getInstance().exportOrdersToPdf(orders);
             } catch (IOException ex) {
                 Logger.getLogger(FormAllOrdersUser.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }*/
+            ControllerClient.getInstance().exportOrdersToPdf(orders);
         } else JOptionPane.showMessageDialog(this, "You have to choose an order!");
     }//GEN-LAST:event_orderToPDFActionPerformed
 
@@ -289,12 +298,12 @@ public class FormAllOrdersUser extends javax.swing.JDialog {
         TableModelOrdersForUser tmou = (TableModelOrdersForUser) tblOrdersNotApproved.getModel();
         ArrayList<Order> orders = tmou.getOrders();
         
-        try {
+        /*try {
             Communication.getInstance().exportOrdersToPdf(orders);
         } catch (IOException ex) {
             Logger.getLogger(FormAllOrdersUser.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        }*/
+        ControllerClient.getInstance().exportOrdersToPdf(orders);
     }//GEN-LAST:event_allOrdersToPDFActionPerformed
 
     private void allInvoicecToPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allInvoicecToPDFActionPerformed
@@ -302,12 +311,12 @@ public class FormAllOrdersUser extends javax.swing.JDialog {
         TableModelInvoicesForUser tmiu = (TableModelInvoicesForUser) tblInvoices.getModel();
     
         ArrayList<Invoice> invoices = tmiu.getInvoices();
-        try {
+        /*try {
             Communication.getInstance().exportInvoicesToPdf(invoices);
         } catch (IOException ex) {
             Logger.getLogger(FormAllOrdersUser.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
+        }*/
+        ControllerClient.getInstance().exportInvoicesToPdf(invoices);
     }//GEN-LAST:event_allInvoicecToPDFActionPerformed
 
     private void OrdersalltoExcellActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrdersalltoExcellActionPerformed
@@ -315,22 +324,24 @@ public class FormAllOrdersUser extends javax.swing.JDialog {
         TableModelOrdersForUser tmou = (TableModelOrdersForUser) tblOrdersNotApproved.getModel();
         ArrayList<Order> orders = tmou.getOrders();
         
-        try {
+        /*try {
             Communication.getInstance().exportOrdersToExcel(orders);
         } catch (IOException ex) {
             Logger.getLogger(FormAllOrdersUser.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
+        ControllerClient.getInstance().exportOrdersToExcel(orders);
     }//GEN-LAST:event_OrdersalltoExcellActionPerformed
 
     private void invoicesalltoExcellActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invoicesalltoExcellActionPerformed
         TableModelInvoicesForUser tmiu = (TableModelInvoicesForUser) tblInvoices.getModel();
         ArrayList<Invoice> invoices = tmiu.getInvoices();
         
-        try {
+        /*try {
             Communication.getInstance().exportInvoicesToExcel(invoices);
         } catch (IOException ex) {
             Logger.getLogger(FormAllOrdersUser.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
+        ControllerClient.getInstance().exportInvoicesToExcel(invoices);
     }//GEN-LAST:event_invoicesalltoExcellActionPerformed
 
     /**
@@ -357,11 +368,12 @@ public class FormAllOrdersUser extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void fillUpTheTableInvoices() {
-        try {
+        /*try {
             Communication.getInstance().getListOfInvoicesForUser(u);
         } catch (IOException ex) {
             Logger.getLogger(FormAllOrdersUser.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
+        ControllerClient.getInstance().getListOfInvoicesForUser(u);
     }
 
     public void handleListOfInvoices(ArrayList<Invoice> invoices, boolean signal10) {
@@ -371,7 +383,7 @@ public class FormAllOrdersUser extends javax.swing.JDialog {
                 System.out.println("invoice: " + invoice.getInvoiceID());
                 System.out.println("orderid: " + invoice.getOrderID().getOrderID());
             }
-            tmou.addInvoice(invoices);
+            tmou.addListOfInvoices(invoices);
             
             /*
             TableColumn sportColumn = table.getColumnModel().getColumn(2);
@@ -402,11 +414,12 @@ sportColumn.setCellEditor(new DefaultCellEditor(comboBox));
     }
 
     private void fillUpTheTableNotApproved() {
-        try {
+        /*try {
             Communication.getInstance().getAllDissapprovedOrders(u);
         } catch (IOException ex) {
             Logger.getLogger(FormAllOrdersUser.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
+        ControllerClient.getInstance().getAllDissapprovedOrders(u);
     }
 
     public void handleListOfOrders(ArrayList<Order> ordersForUser, boolean signal11) {

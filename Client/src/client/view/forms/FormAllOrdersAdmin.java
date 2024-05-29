@@ -37,6 +37,8 @@ public class FormAllOrdersAdmin extends javax.swing.JDialog {
         lblMessage.setText("Approve orders, " + a.getUsername());
         tblOrders.setModel(new TableModelOrder());
         fillUpTheTable();
+        setSize(600, 600);
+        setName("All orders");
     }
 
     /**
@@ -107,7 +109,7 @@ public class FormAllOrdersAdmin extends javax.swing.JDialog {
 
         lblTextMessage.setText("    ");
 
-        jButton5.setText("EXPORT ALL INVOICES TO EXCEL");
+        jButton5.setText("EXPORT ALL ORDERS TO EXCEL");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -178,11 +180,12 @@ public class FormAllOrdersAdmin extends javax.swing.JDialog {
         int row = tblOrders.getSelectedRow();
         if (row != -1) {
             Order newOrder = tmo.getOrder(row);
-            try {
+            /*try {
                 Communication.getInstance().getOrderItemsByOrder(newOrder);
             } catch (IOException ex) {
                 Logger.getLogger(FormAllOrdersAdmin.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }*/
+            ControllerClient.getInstance().getOrderItemsByOrder(newOrder);
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -194,11 +197,12 @@ public class FormAllOrdersAdmin extends javax.swing.JDialog {
         if (row != -1) {
             Order newOrder = tmo.getOrder(row);
             Invoice i = new Invoice(0, newOrder.getTotalAmountPricee(), true, newOrder, a);
-            try {
+            /*try {
                 Communication.getInstance().saveInvoice(i);
             } catch (IOException ex) {
                 Logger.getLogger(FormAllOrdersAdmin.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }*/
+            ControllerClient.getInstance().saveInvoice(i);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -210,22 +214,27 @@ public class FormAllOrdersAdmin extends javax.swing.JDialog {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // export to excel
         TableModelOrder tmo = (TableModelOrder) tblOrders.getModel();
-        ArrayList<Order> orders = tmo.getListOrder();
+        int row = tblOrders.getSelectedRow();
+        Order orderForExcel = tmo.getOrder(row);
+        ArrayList<Order> orders = new ArrayList<>();
+        orders.add(orderForExcel);
         
-        try {
+        /*try {
             Communication.getInstance().exportOrdersToExcel(orders);
         } catch (IOException ex) {
             Logger.getLogger(FormAllOrdersAdmin.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
+        ControllerClient.getInstance().exportOrdersToExcel(orders);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // EXPORT ALL INVOICES TO EXCEL
-        try {
+        /*try {
             Communication.getInstance().exportAllInvoicesToExcellForAdmin();
         } catch (IOException ex) {
             Logger.getLogger(FormAllOrdersAdmin.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
+        ControllerClient.getInstance().exportAllInvoicesToExcellForAdmin();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
@@ -249,11 +258,12 @@ public class FormAllOrdersAdmin extends javax.swing.JDialog {
 
     
     private void fillUpTheTable() {
-        try {
+        /*try {
             Communication.getInstance().getListOfAllOrdersForAdmin();
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(FormAllOrdersAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        }*/
+        ControllerClient.getInstance().getListOfAllOrdersForAdmin();
     }
 
     public void handleAllOrders(ArrayList<Order> ordersForAdmin, boolean signal7) {

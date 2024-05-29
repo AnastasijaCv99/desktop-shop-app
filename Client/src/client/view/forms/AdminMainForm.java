@@ -5,6 +5,7 @@
 package client.view.forms;
 
 import client.communication.Communication;
+import client.controller.ControllerClient;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,6 +39,9 @@ public class AdminMainForm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.a = a;
         setNumberOfUnapproved();
+        setSize(600, 600);
+        setName("Main page");
+
     }
 
     /**
@@ -224,11 +228,12 @@ public class AdminMainForm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        try {
+        /*try {
             Communication.getInstance().logout();
         } catch (IOException ex) {
             Logger.getLogger(UserMainForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
+        ControllerClient.getInstance().logout();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -266,11 +271,12 @@ public class AdminMainForm extends javax.swing.JFrame {
         //poslati zahtev za dobijanjem broja neodobrenih ali i na svaki klik iz ordera da se
         //azurira ovaj broj ako se nesto tamo promenilo, odnosno na svaki izlaz iz onog prozora
         //za ordere da se ponovo pozove ova metoda
-        try {
+        /*try {
             Communication.getInstance().getNumberOfUnapproved();
         } catch (IOException ex) {
             Logger.getLogger(AdminMainForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
+        ControllerClient.getInstance().getNumberOfUnapproved();
     }
 
     public void handleNumberOfUnapproved(int result, boolean signal12) {

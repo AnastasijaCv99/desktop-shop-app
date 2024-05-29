@@ -37,6 +37,8 @@ public class UserMainForm extends javax.swing.JFrame {
         this.u = u;
         setLocationRelativeTo(null);
         ControllerClient.getInstance().setUsermf(this);
+        setTitle("Main page");
+        setSize(600, 600);
     }
 
     /**
@@ -165,26 +167,18 @@ public class UserMainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
             ArrayList<OrderItems> listOfItems = TableModelOrderItems.getListOfItems();
             int nmbOfItems = listOfItems.size();
             if (!listOfItems.isEmpty()) {
                 int result = JOptionPane.showConfirmDialog(this, "You have " + nmbOfItems + " items in your cart. Do you really want to logout, you will lose your work?", "Logout", JOptionPane.YES_NO_OPTION);
                 if (JOptionPane.YES_OPTION == result) {
-                    try {
-                        Communication.getInstance().logout();
-                    } catch (IOException ex) {
-                        Logger.getLogger(FormYourCartUser.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                   ControllerClient.getInstance().logout();
                 } else if (JOptionPane.NO_OPTION == result){
                     System.out.println("NO");
                     return;
                 }
-            } else Communication.getInstance().logout();
-           
-        } catch (IOException ex) {
-            Logger.getLogger(UserMainForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            } else ControllerClient.getInstance().logout();
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

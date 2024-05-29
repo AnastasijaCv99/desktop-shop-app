@@ -57,6 +57,9 @@ public class FormAllProductsView extends javax.swing.JDialog {
         }
         
         fillInTheTable();
+        
+        setSize(600, 600);
+        setName("Products");
     }
 
     /**
@@ -255,7 +258,7 @@ public class FormAllProductsView extends javax.swing.JDialog {
         if (row == -1) {
             JOptionPane.showMessageDialog(this, "You have to choose a product!");
         } else {
-            try {
+            //try {
                 TableModelProductsForAdmin tmpa = (TableModelProductsForAdmin) tblProducts.getModel();
                 Product pForDelete = tmpa.getAProduct(row);
                 if (pForDelete == null) {
@@ -263,11 +266,12 @@ public class FormAllProductsView extends javax.swing.JDialog {
                     return;
                 } else {
                     tmpa.deleteAProduct(pForDelete);
-                    Communication.getInstance().deleteProduct(pForDelete);
+                    //Communication.getInstance().deleteProduct(pForDelete);
+                    ControllerClient.getInstance().deleteProduct(pForDelete);
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(FormAllProductsView.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            //} catch (IOException ex) {
+              //  Logger.getLogger(FormAllProductsView.class.getName()).log(Level.SEVERE, null, ex);
+            //}
         }
         
         
@@ -370,11 +374,12 @@ public class FormAllProductsView extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void fillInTheTable() {
-        try {
+        /*try {
             Communication.getInstance().getListOfAllProducts();
         } catch (IOException ex) {
             Logger.getLogger(FormAllProductsView.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
+        ControllerClient.getInstance().getListOfAllProducts();
     }
 
     public void handleListOfProducts(ArrayList<Product> products, boolean sig) {

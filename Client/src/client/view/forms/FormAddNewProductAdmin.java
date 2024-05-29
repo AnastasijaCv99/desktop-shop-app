@@ -29,6 +29,8 @@ public class FormAddNewProductAdmin extends javax.swing.JDialog {
         this.a = a;
         setLocationRelativeTo(null);
         ControllerClient.getInstance().setAddnewproductf(this);
+        setSize(600, 600);
+        setName("Add new product");
     }
 
     /**
@@ -175,12 +177,13 @@ public class FormAddNewProductAdmin extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "The price and stock have to be bigger than 0!");
             return;
         }
-        try {
+        //try {
             Product product = new Product(-1, title, description, price, stock, 0);
-            Communication.getInstance().addNewProduct(product);
-        } catch (IOException ex) {
-            Logger.getLogger(FormAddNewProductAdmin.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            ControllerClient.getInstance().addNewProduct(product);
+            //Communication.getInstance().addNewProduct(product);
+        //} catch (IOException ex) {
+        //    Logger.getLogger(FormAddNewProductAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        //}
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

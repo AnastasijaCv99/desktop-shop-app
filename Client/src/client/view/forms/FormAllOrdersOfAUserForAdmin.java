@@ -45,6 +45,9 @@ public class FormAllOrdersOfAUserForAdmin extends javax.swing.JDialog {
         fillUpTheTables();
         tblOrdersNotApproved.setModel(new TableModelOrdersForUser());
         tblInvoices.setModel(new TableModelInvoicesForUser());
+        
+        setSize(600, 600);
+        setName("All orders");
     }
 
     /**
@@ -173,11 +176,12 @@ public class FormAllOrdersOfAUserForAdmin extends javax.swing.JDialog {
         if (row != -1) {
             Order newOrder = tmo.getOrder(row);
             Invoice i = new Invoice(0, newOrder.getTotalAmountPricee(), true, newOrder, a);
-            try {
+            /*try {
                 Communication.getInstance().saveInvoice(i);
             } catch (IOException ex) {
                 Logger.getLogger(FormAllOrdersOfAUserForAdmin.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }*/
+            ControllerClient.getInstance().saveInvoice(i);
         }
         
     }//GEN-LAST:event_approvebtnActionPerformed
@@ -210,18 +214,20 @@ public class FormAllOrdersOfAUserForAdmin extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void fillUpTheTables() {
-        try {
+        /*try {
             Communication.getInstance().getOrdersOfUserForAdmin(u);
             Communication.getInstance().getInvoicesOfUserForAdmin(u);
         } catch (IOException ex) {
             Logger.getLogger(FormAllOrdersOfAUserForAdmin.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
+        ControllerClient.getInstance().getOrdersOfUserForAdmin(u);
+        ControllerClient.getInstance().getInvoicesOfUserForAdmin(u);
     }
 
     public void handleListOfInvoicesOfUser(ArrayList<Invoice> invoicesOfUserForAdmin, boolean signal14) {
         if (signal14) {
             TableModelInvoicesForUser tmou = (TableModelInvoicesForUser) tblInvoices.getModel();
-            tmou.addInvoice(invoicesOfUserForAdmin);
+            tmou.addListOfInvoices(invoicesOfUserForAdmin);
         } else {
             JOptionPane.showMessageDialog(this, "Something went wrong");
             this.dispose();

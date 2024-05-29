@@ -38,7 +38,8 @@ public class FormAllClientsAdmin extends javax.swing.JDialog {
         tblUsers.setModel(new TableModelUsers());
         ControllerClient.getInstance().setAllusersf(this);
         fillInTheTable();
-        
+        setSize(600, 600);
+        setName("All clients");
     }
 
     /**
@@ -158,11 +159,12 @@ public class FormAllClientsAdmin extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void fillInTheTable() {
-        try {
+        /*try {
             Communication.getInstance().getListOfAllUsers();
         } catch (IOException ex) {
             Logger.getLogger(FormAllClientsAdmin.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
+        ControllerClient.getInstance().getListOfAllUsers();
     }
 
     public void handleListOfUsers(ArrayList<User> users, boolean signal1) {

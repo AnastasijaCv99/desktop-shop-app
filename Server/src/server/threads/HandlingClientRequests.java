@@ -322,6 +322,8 @@ public class HandlingClientRequests extends Thread{
             //treba prvo da se sacuva order da bi se sacuvali i orderItems
             
             Controller.getInstance().saveOrder(newOrder);
+            System.out.println("orderID : " + newOrder.getOrderID());
+            //sendEmail(newOrder);
             response.setSignal(true);
         } catch (Exception ex) {
             response.setSignal(false);
@@ -330,7 +332,6 @@ public class HandlingClientRequests extends Thread{
         }
         response.setOperation(Operation.SAVE_ORDER);
         return response;
-        
     }
 
     private Response deleteProduct(Request request) {

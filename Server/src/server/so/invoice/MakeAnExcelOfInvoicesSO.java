@@ -25,9 +25,11 @@ public class MakeAnExcelOfInvoicesSO {
     
     public void exportInvoiceToEXCEL(ArrayList<Invoice> invoices) throws FileNotFoundException, IOException {
         //za naziv ce da se uzme rendom broj
+
+        int firstInvoiceID = invoices.get(0).getInvoiceID();
         long random = Math.round(Math.random()*100);
         int size = invoices.size();
-        String destination = "../EXCELs/inv" + size + random + ".xlsx";
+        String destination = "../EXCELs/inv" + firstInvoiceID + size + random + ".xlsx";
         
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("sheet");

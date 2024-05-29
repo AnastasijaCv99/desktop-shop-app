@@ -55,12 +55,17 @@ public class MakeAPDFofOrder {
     String fontItalic = "D:\\Projekti\\NetBeansProjects\\iText-Core-8.0.1-only-jars-and-fonts-and-l4j\\Times-New-Roman\\times-new-roman-italic.ttf";
     
     String title;
+
+    public String getDestination() {
+        return destination;
+    }
     
     public void exportOrderToPDF(ArrayList<Order> orders) throws FileNotFoundException, IOException {
 
         int firstOrderID = orders.get(0).getOrderID();
         String userOFOrders = orders.get(0).getUserID().getName();
-        destination = "../PDFs/order" + userOFOrders + firstOrderID + ".pdf";
+        long random = Math.round(Math.random()*100);
+        destination = "../PDFs/order" + userOFOrders + firstOrderID + random + ".pdf";
 
         //za dest random Math.round(Math.random()*9);
         

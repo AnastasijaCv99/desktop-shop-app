@@ -53,8 +53,13 @@ public class TableModelInvoicesForUser extends AbstractTableModel{
         }
     }
 
-    public void addInvoice(ArrayList<Invoice> invoices) {
+    public void addListOfInvoices(ArrayList<Invoice> invoices) {
         this.invoices = invoices;
+        fireTableDataChanged();
+    }
+    
+    public void addInvoice(Invoice invoice) {
+        invoices.add(invoice);
         fireTableDataChanged();
     }
     

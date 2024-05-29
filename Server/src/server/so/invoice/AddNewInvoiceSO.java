@@ -67,22 +67,22 @@ public class AddNewInvoiceSO extends AbstractSO{
     @Override
     protected void commitTransaction() throws Exception {
         repositoryGeneric.commit();
-        repositoryGeneric.commit();
-        repositoryGeneric.commit();
+        //repositoryGeneric.commit();
+        //repositoryGeneric.commit();
     }
 
     @Override
     protected void rollbackTransaction() throws Exception {
         repositoryGeneric.rollback();
-        repositoryGeneric.rollback();
-        repositoryGeneric.rollback();
+        //repositoryGeneric.rollback();
+        //repositoryGeneric.rollback();
     }
 
     @Override
     protected void disconnect() throws Exception {
         repositoryGeneric.disconnect();
-        repositoryGeneric.disconnect();
-        repositoryGeneric.disconnect();
+        //repositoryGeneric.disconnect();
+        //repositoryGeneric.disconnect();
     }
     
     

@@ -4,7 +4,11 @@
  */
 package server.so.order;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.ArrayList;
+import server.controller.Controller;
 import server.repository.db.DbRepository;
 import server.repository.db.impl.RepositoryGeneric;
 //import server.repository.db.impl.RepositoryOrder;
@@ -70,6 +74,17 @@ public class AddNewOrderSO extends AbstractSO{
             }
 
         }
+        
+       //sad ide mejl
+       ArrayList<Order> orderForSending = new ArrayList<>();
+        orderForSending.add(newOrder);
+        try {
+            String filename = Controller.getInstance().exportOrderToPdf(orderForSending);
+            System.out.println("filename name: " + filename);
+            Controller.getInstance().sendEmail(filename, newOrder);
+        } catch (IOException ex) {
+            Logger.getLogger(AddNewOrderSO.class.getName()).log(Level.SEVERE, null, ex);
+        }
        
     }
 
@@ -77,23 +92,23 @@ public class AddNewOrderSO extends AbstractSO{
     protected void commitTransaction() throws Exception {
         //first commit the items and then the whole order
         repositoryGeneric.commit();
-        repositoryGeneric.commit();
-        repositoryGeneric.commit();
+        //repositoryGeneric.commit();
+        //repositoryGeneric.commit();
     }
 
     @Override
     protected void rollbackTransaction() throws Exception {
         //if there is an error in orderItems, don't save the Order
         repositoryGeneric.rollback();
-        repositoryGeneric.rollback();
-        repositoryGeneric.commit();
+        //repositoryGeneric.rollback();
+        //repositoryGeneric.commit();
     }
 
     @Override
     protected void disconnect() throws Exception {
         repositoryGeneric.disconnect();
-        repositoryGeneric.disconnect();
-        repositoryGeneric.disconnect();
+        //repositoryGeneric.disconnect();
+        //repositoryGeneric.disconnect();
     }
     
     

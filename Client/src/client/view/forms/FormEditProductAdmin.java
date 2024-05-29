@@ -30,6 +30,9 @@ public class FormEditProductAdmin extends javax.swing.JDialog {
         fillUpTheFields();
         txtWelcome.setText("Edit product: " + p.getTitle());
         ControllerClient.getInstance().setEditproductf(this);
+        
+        setSize(600, 600);
+        setName("Edit product");
     }
 
     /**
@@ -162,11 +165,12 @@ public class FormEditProductAdmin extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "You have to change something");
         } else {
             Product pForEdit = new Product(p.getProductID(), title, description, price, stock, 0);
-            try {
+            /*try {
                 Communication.getInstance().editProduct(pForEdit);
             } catch (IOException ex) {
                 Logger.getLogger(FormEditProductAdmin.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }*/
+            ControllerClient.getInstance().editProduct(pForEdit);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

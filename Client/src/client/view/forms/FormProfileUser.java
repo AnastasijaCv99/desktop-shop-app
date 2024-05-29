@@ -32,6 +32,9 @@ public class FormProfileUser extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         fillUpTheFields();
         
+        setSize(600, 600);
+        setName("Your profile");
+        
     }
 
     /**
@@ -195,11 +198,12 @@ public class FormProfileUser extends javax.swing.JDialog {
                 else {
                     int id = this.u.getUserID();
                     newUser.setUserID(id);
-                try {
+                /*try {
                     Communication.getInstance().updateUserProfile(newUser);
                 } catch (IOException ex) {
                     Logger.getLogger(FormProfileUser.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                }*/
+                ControllerClient.getInstance().updateUserProfile(newUser);
                 }
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(this, "Phone number can contain ONLY numbers!");
@@ -236,6 +240,7 @@ public class FormProfileUser extends javax.swing.JDialog {
         txtLastName.setText(u.getLastName());
         txtUsername.setText(u.getUsername());
         txtPassword.setText(u.getPassword());
+        
         txtPhoneNumber.setText(u.getPhoneNumber());
         txtAddress.setText(u.getAddress());
     }

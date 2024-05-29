@@ -29,6 +29,8 @@ public class FormAddNewClientAdmin extends javax.swing.JDialog {
         this.a = a;
         setLocationRelativeTo(null);
         ControllerClient.getInstance().setAddnewclientf(this);
+        setSize(600, 600);
+        setName("Add new client");
     }
 
     /**
@@ -194,11 +196,12 @@ public class FormAddNewClientAdmin extends javax.swing.JDialog {
         try {
             String phoneNumber = txtPhoneNumber.getText();
             User newUser = new User(-1, name, lastName, username, password, phoneNumber, address);
-                try {
+                /*try {
                     Communication.getInstance().addNewUser(newUser);
                 } catch (IOException ex) {
                     Logger.getLogger(FormAddNewClientAdmin.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                }*/
+                ControllerClient.getInstance().addNewUser(newUser);
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(this, "Phone number can contain ONLY numbers!");
             return;

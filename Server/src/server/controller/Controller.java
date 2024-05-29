@@ -13,6 +13,7 @@ import server.so.invoice.GetInvoiceForUserSO;
 import server.so.invoice.GetInvoicesForAdminSO;
 import server.so.invoice.MakeAPDFofInvoice;
 import server.so.invoice.MakeAnExcelOfInvoicesSO;
+import server.so.mails.SendEmailAfterOrdering;
 import server.so.order.GetAllOrdersForAdminSO;
 import server.so.order.AddNewOrderSO;
 import server.so.order.GetAllOrdersForUserSO;
@@ -155,9 +156,10 @@ public class Controller {
         getNumber.execute(result);
     }
 
-    public void exportOrderToPdf(ArrayList<Order> orders) throws IOException {
+    public String exportOrderToPdf(ArrayList<Order> orders) throws IOException {
         MakeAPDFofOrder makePDF = new MakeAPDFofOrder();
         makePDF.exportOrderToPDF(orders);
+        return makePDF.getDestination();
     }
 
     public void exportInvoiceToPdf(ArrayList<Invoice> invoices) throws IOException {
@@ -178,6 +180,11 @@ public class Controller {
     public void getAllInvoicesForAdmin(ArrayList<Invoice> listOfInvoicesForAdmin) throws Exception{
         GetInvoicesForAdminSO invoicesForAdmin = new GetInvoicesForAdminSO();
         invoicesForAdmin.execute(listOfInvoicesForAdmin);
+    }
+
+    public void sendEmail(String filename, Order newOrder) {
+        SendEmailAfterOrdering sendEmail = new SendEmailAfterOrdering();
+        sendEmail.send(filename, newOrder);
     }
 
 }

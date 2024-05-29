@@ -39,6 +39,9 @@ public class FormYourCartUser extends javax.swing.JDialog {
         txtWelcome.setText("Your cart, " + u.getName());
         tblItems.setModel(new TableModelOrderItems());
         refreshTable();
+        
+        setSize(600, 600);
+        setName("Your cart");
     }
 
     /**
@@ -189,12 +192,13 @@ public class FormYourCartUser extends javax.swing.JDialog {
         Order newOrder = new Order(-1, fullPrice, u, null, listOfItems);
         int result = JOptionPane.showConfirmDialog(this, fullPrice, "This is the full price", JOptionPane.YES_NO_OPTION);
         if (JOptionPane.YES_OPTION == result) {
-            try {
+            /*try {
                 //save in db
                     Communication.getInstance().saveOrder(newOrder);
             } catch (IOException ex) {
                 Logger.getLogger(FormYourCartUser.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                }*/
+            ControllerClient.getInstance().saveOrder(newOrder);
             //isprazni listu
             TableModelOrderItems tmoi = (TableModelOrderItems) tblItems.getModel();
             TableModelOrderItems.emptyList();

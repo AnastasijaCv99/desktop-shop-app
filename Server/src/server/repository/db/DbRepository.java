@@ -6,16 +6,17 @@ package server.repository.db;
 
 import java.sql.SQLException;
 import server.repository.Repository;
+import java.sql.*;
 
 
 /**
- *
+ 
  * @author Anastasija Cvetkovic
  */
 public interface DbRepository<T, K, S> extends Repository<T, K, S>{
     
-    default public void connect() throws Exception{
-        DbConnectionFactory.getInstance().getConnection();
+    default public Connection connect() throws Exception{
+        return DbConnectionFactory.getInstance().getConnection();
     }
     
     default public void disconnect() throws SQLException, Exception{

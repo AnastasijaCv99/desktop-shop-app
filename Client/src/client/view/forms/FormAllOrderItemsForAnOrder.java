@@ -20,6 +20,8 @@ public class FormAllOrderItemsForAnOrder extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         tblORder.setModel(new TableModelAllOrderItemsForAnOrder());
+        setSize(600, 600);
+        setName("Order items");
     }
 
     /**
